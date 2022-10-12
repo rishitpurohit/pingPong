@@ -22,7 +22,12 @@ var ball = {
 }
 
 function setup(){
-  var canvas =  createCanvas(700,600);
+   canvas =  createCanvas(700,600);
+  webcam.parent("game_console");
+  webcam=createCapture(VIDEO);
+  webcam.size(900,450)
+  objectDetector=ml5.poseNet(webcam,modelLoaded)
+  objectDetector.on('pose',gotPoses)
 }
 
 
@@ -162,4 +167,6 @@ function paddleInCanvas(){
   if(mouseY < 0){
     mouseY =0;
   }  
-}
+}function modelLoaded(){
+  console.log("model is loaded")
+  }
