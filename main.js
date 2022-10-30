@@ -40,6 +40,8 @@ video.hide();
 
 poseNet = ml5.poseNet(video, modelLoaded);
 poseNet.on('pose', gotPoses);
+mousey=loadSound("missed.wav");
+mousex=loadSound("ball_touch_paddel.wav")
 }
 
 function modelLoaded() {
@@ -169,10 +171,12 @@ function move(){
   if (ball.x-2.5*ball.r/2< 0){
   if (ball.y >= paddle1Y&& ball.y <= paddle1Y + paddle1Height) {
     ball.dx = -ball.dx+0.5; 
+    mousey.play()
     
   }
   else{
     pcscore++;
+    mousex.play()
     
     reset();
     navigator.vibrate(100);
@@ -185,8 +189,7 @@ if(pcscore ==4){
     fill("white");
     stroke("white");
     textSize(25);
-    text("Game Over!",width/2,height/2);
-    text("Reload the page!",width/2,height/2+30)
+    text("Click on restart button to restart the game");
     noLoop();
     pcscore = 0;
  }
@@ -218,4 +221,9 @@ function paddleInCanvas(){
  
   
 }
-
+function restart(){
+  loop()
+  pcscore=0;
+  playerscore=0;
+  
+}
